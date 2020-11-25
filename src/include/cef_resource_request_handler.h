@@ -72,7 +72,7 @@ class CefResourceRequestHandler : public virtual CefBaseRefCounted {
       CefRefPtr<CefBrowser> browser,
       CefRefPtr<CefFrame> frame,
       CefRefPtr<CefRequest> request) {
-    return nullptr;
+    return NULL;
   }
 
   ///
@@ -109,7 +109,7 @@ class CefResourceRequestHandler : public virtual CefBaseRefCounted {
       CefRefPtr<CefBrowser> browser,
       CefRefPtr<CefFrame> frame,
       CefRefPtr<CefRequest> request) {
-    return nullptr;
+    return NULL;
   }
 
   ///
@@ -163,7 +163,7 @@ class CefResourceRequestHandler : public virtual CefBaseRefCounted {
       CefRefPtr<CefFrame> frame,
       CefRefPtr<CefRequest> request,
       CefRefPtr<CefResponse> response) {
-    return nullptr;
+    return NULL;
   }
 
   ///
