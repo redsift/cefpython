@@ -278,6 +278,8 @@ cdef class PyBrowser:
             # FocusHandler
             self.allowedClientCallbacks += ["OnTakeFocus", "OnSetFocus",
                                             "OnGotFocus"]
+            # Printing
+            self.allowedClientCallbacks += ["OnFileDialog",  "OnPdfPrintFinished"]
 
         if name not in self.allowedClientCallbacks:
             raise Exception("Browser.SetClientCallback() failed: unknown "
@@ -585,9 +587,9 @@ cdef class PyBrowser:
                 inspect_element_at)
 
     cpdef py_void PrintToPdf(self, py_string filepath, dict settings, object func = None):
-        self.SetClientCallback('OnMyPdfPrintFinished', func)
+        self.SetClientCallback('OnPdfPrintFinished', func)
         cdef CefPdfPrintSettings pdf_print_settings
-        pdf_print_settings.margin_type = settings.get('margin_type') or PDF_PRINT_MARGIN_DEFAULT
+        pdf_print_settings.margin_type = settings.get('margin_type') or cef_types.PDF_PRINT_MARGIN_DEFAULT
         pdf_print_settings.header_footer_enabled = settings.get('header_footer_enabled') or 0
         pdf_print_settings.selection_only = settings.get('selection_only') or 0
         pdf_print_settings.landscape = settings.get('landscape') or 0
