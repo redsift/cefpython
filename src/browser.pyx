@@ -614,7 +614,9 @@ cdef class PyBrowser:
         cdef CefString cef_file_path
         PyToCefString(filepath, cef_file_path)
 
-        cdef CefRefPtr[CefPdfPrintCallback] pdf_callback = <CefRefPtr[CefPdfPrintCallback]?>new CefFastPdfPrintCallback(self.cefBrowser)
+        # cdef CefRefPtr[CefPdfPrintCallback] pdf_callback = <CefRefPtr[CefPdfPrintCallback]?> NULL
+        cdef CefRefPtr[CefPdfPrintCallback] pdf_callback = <CefRefPtr[
+            CefPdfPrintCallback]?> new CefFastPdfPrintCallback(self.cefBrowser)
         self.GetCefBrowserHost().get().PrintToPDF(cef_file_path, pdf_print_settings, pdf_callback)
 
     cpdef py_void StopLoad(self):
