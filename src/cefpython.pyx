@@ -271,14 +271,13 @@ from cef_cookie cimport *
 from cef_string_visitor cimport *
 # noinspection PyUnresolvedReferences
 cimport cef_cookie_manager_namespace
-from fast_pdf_print_callback cimport *
 from cookie_visitor cimport *
 from string_visitor cimport *
 from cef_callback cimport *
 from cef_response cimport *
 from cef_resource_handler cimport *
 from resource_handler cimport *
-from fast_pdf_print_callback cimport *
+from print_callback cimport *
 from cef_urlrequest cimport *
 from web_request_client cimport *
 from cef_command_line cimport *
