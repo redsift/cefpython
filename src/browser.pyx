@@ -590,7 +590,8 @@ cdef class PyBrowser:
         self.SetClientCallback('OnPdfPrintFinished', func)
         cdef CefPdfPrintSettings pdf_print_settings
         pdf_print_settings.margin_type = settings.get('margin_type') or cef_types.PDF_PRINT_MARGIN_DEFAULT
-        pdf_print_settings.header_footer_enabled = settings.get('header_footer_enabled') or 0
+        pdf_print_settings.header_footer_enabled = settings.get('header_footer_title') or \
+                                                   settings.get('header_footer_url')
         pdf_print_settings.selection_only = settings.get('selection_only') or 0
         pdf_print_settings.landscape = settings.get('landscape') or 0
         pdf_print_settings.backgrounds_enabled = settings.get('backgrounds_enabled') or 0
@@ -602,15 +603,14 @@ cdef class PyBrowser:
             pdf_print_settings.margin_left = settings.get('margin_left')
             pdf_print_settings.margin_bottom = settings.get('margin_bottom')
         pdf_print_settings.scale_factor = settings.get('scale_factor') or 0
-        if settings.get('header_footer_enabled') == 1:
-            if settings.get('header_footer_title'):
-                header_footer_title = new CefString(&pdf_print_settings.header_footer_title)
-                PyToCefStringPointer(settings.get('header_footer_title'), header_footer_title)
-                del header_footer_title
-            if settings.get('header_footer_url'):
-                header_footer_url = new CefString(&pdf_print_settings.header_footer_url)
-                PyToCefStringPointer(settings.get('header_footer_url'), header_footer_url)
-                del header_footer_url
+        if settings.get('header_footer_title'):
+            header_footer_title = new CefString(&pdf_print_settings.header_footer_title)
+            PyToCefStringPointer(settings.get('header_footer_title'), header_footer_title)
+            del header_footer_title
+        if settings.get('header_footer_url'):
+            header_footer_url = new CefString(&pdf_print_settings.header_footer_url)
+            PyToCefStringPointer(settings.get('header_footer_url'), header_footer_url)
+            del header_footer_url
         cdef CefString cef_file_path
         PyToCefString(filepath, cef_file_path)
 
