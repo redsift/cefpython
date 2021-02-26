@@ -28,6 +28,7 @@ bool ResourceHandler::ReadResponse(void* data_out,
             bytes_to_read, bytes_read, callback);
 }
 
+/*
 bool ResourceHandler::CanGetCookie(const CefCookie& cookie) {
     REQUIRE_IO_THREAD();
     return ResourceHandler_CanGetCookie(resourceHandlerId_, cookie);
@@ -37,6 +38,7 @@ bool ResourceHandler::CanSetCookie(const CefCookie& cookie) {
     REQUIRE_IO_THREAD();
     return ResourceHandler_CanSetCookie(resourceHandlerId_, cookie);
 }
+*/
 
 void ResourceHandler::Cancel() {
     REQUIRE_IO_THREAD();

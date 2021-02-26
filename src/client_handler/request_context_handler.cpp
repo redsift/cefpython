@@ -2,13 +2,15 @@
 // All rights reserved. Licensed under BSD 3-clause license.
 // Project website: https://github.com/cztomczak/cefpython
 
-#include "request_context_handler.h"
 #include "common/cefpython_public_api.h"
+#include "include/cef_request_context_handler.h"
+#include "request_context_handler.h"
+
 
 // --------------------------------------------------------------------------
 // CefRequestContextHandler
 // --------------------------------------------------------------------------
-
+/*
 CefRefPtr<CefCookieManager> RequestContextHandler::GetCookieManager() {
     REQUIRE_IO_THREAD();
     if (browser_.get()) {
@@ -20,6 +22,7 @@ CefRefPtr<CefCookieManager> RequestContextHandler::GetCookieManager() {
     }    
     // Default: return NULL.
 }
+*/
 
 bool RequestContextHandler::OnBeforePluginLoad(
                         const CefString& mime_type,

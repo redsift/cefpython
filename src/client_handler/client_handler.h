@@ -50,9 +50,9 @@ public:
     }
 #endif
 
-    CefRefPtr<CefDisplayHandler> GetDisplayHandler() override {
-        return this;
-    }
+//    CefRefPtr<CefDisplayHandler> GetDisplayHandler() override {
+//        return this;
+//    }
 
     CefRefPtr<CefDownloadHandler> GetDownloadHandler() override {
         return this;
@@ -85,11 +85,11 @@ public:
     CefRefPtr<CefRequestHandler> GetRequestHandler() override {
         return this;
     }
-
+    
     bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
-                                  CefProcessId source_process,
-                                  CefRefPtr<CefProcessMessage> message
-                                  ) override;
+                                        CefRefPtr<CefFrame> frame,
+                                        CefProcessId source_process,
+                                        CefRefPtr<CefProcessMessage> message) override;
 
 private:
   IMPLEMENT_REFCOUNTING(ClientHandler);

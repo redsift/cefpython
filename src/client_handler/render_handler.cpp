@@ -69,13 +69,13 @@ void RenderHandler::OnPaint(CefRefPtr<CefBrowser> browser,
 }
 
 
-void RenderHandler::OnCursorChange(CefRefPtr<CefBrowser> browser,
+bool RenderHandler::OnCursorChange(CefRefPtr<CefBrowser> browser,
                                    CefCursorHandle cursor,
-                                   CursorType type,
+                                   cef_cursor_type_t type,
                                    const CefCursorInfo& custom_cursor_info)
 {
     REQUIRE_UI_THREAD();
-    RenderHandler_OnCursorChange(browser, cursor);
+    return RenderHandler_OnCursorChange(browser, cursor);
 }
 
 

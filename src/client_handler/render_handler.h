@@ -8,6 +8,7 @@
 
 
 class RenderHandler : public CefRenderHandler,
+                      public CefDisplayHandler,
                       public AccessibilityHandler
 {
 public:
@@ -46,9 +47,9 @@ public:
                  const void* buffer,
                  int width, int height) override;
 
-    void OnCursorChange(CefRefPtr<CefBrowser> browser,
+    bool OnCursorChange(CefRefPtr<CefBrowser> browser,
                         CefCursorHandle cursor,
-                        CursorType type,
+                        cef_cursor_type_t type,
                         const CefCursorInfo& custom_cursor_info
                         ) override;
 

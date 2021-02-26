@@ -23,6 +23,7 @@
 #include "include/cef_urlrequest.h"
 #include "include/cef_command_line.h"
 #include "util.h"
+#include "include/cef_web_plugin.h"
 
 // cefpython_fixed.h declares public functions using DL_IMPORT and these
 // macros are not available in Python 3.
