@@ -749,12 +749,12 @@ def CreateBrowserSync(windowInfo=None,
         g_shared_request_context.Assign(cefRequestContext.get())
     else:
         cefRequestContext.Assign(g_shared_request_context.get())
-
+    cdef CefRefPtr[CefDictionaryValue] extra = CefDictionaryValue_Create()
     # CEF browser creation.
     with nogil:
         cefBrowser = cef_browser_static.CreateBrowserSync(
                 cefWindowInfo, <CefRefPtr[CefClient]?>clientHandler,
-                cefNavigateUrl, cefBrowserSettings,
+                cefNavigateUrl, cefBrowserSettings, extra,
                 cefRequestContext)
 
     if <void*>cefBrowser == NULL or not cefBrowser.get():

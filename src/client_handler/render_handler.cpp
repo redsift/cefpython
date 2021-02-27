@@ -75,7 +75,8 @@ bool RenderHandler::OnCursorChange(CefRefPtr<CefBrowser> browser,
                                    const CefCursorInfo& custom_cursor_info)
 {
     REQUIRE_UI_THREAD();
-    return RenderHandler_OnCursorChange(browser, cursor);
+    RenderHandler_OnCursorChange(browser, cursor);
+    return false; // TODO: change return type of RenderHandler_OnCursorChange with API change
 }
 
 

@@ -207,7 +207,7 @@ cdef public void RequestHandler_OnResourceRedirect(
 
 cdef public cpp_bool RequestHandler_GetAuthCredentials(
         CefRefPtr[CefBrowser] cefBrowser,
-        CefRefPtr[CefFrame] cefFrame,
+        const CefString& cefOriginUrl,
         cpp_bool cefIsProxy,
         const CefString& cefHost,
         int cefPort,
@@ -216,7 +216,7 @@ cdef public cpp_bool RequestHandler_GetAuthCredentials(
         CefRefPtr[CefAuthCallback] cefAuthCallback
         ) except * with gil:
     cdef PyBrowser pyBrowser
-    cdef PyFrame pyFrame
+    cdef str pyOriginUrl
     cdef py_bool pyIsProxy
     cdef str pyHost
     cdef int pyPort
@@ -234,7 +234,7 @@ cdef public cpp_bool RequestHandler_GetAuthCredentials(
             return False
 
         pyBrowser = GetPyBrowser(cefBrowser, "GetAuthCredentials")
-        pyFrame = GetPyFrame(cefFrame)
+        pyOriginUrl = CefToPyString(cefOriginUrl)
         pyIsProxy = bool(cefIsProxy)
         pyHost = CefToPyString(cefHost)
         pyPort = int(cefPort)
@@ -247,7 +247,7 @@ cdef public cpp_bool RequestHandler_GetAuthCredentials(
         if clientCallback:
             returnValue = clientCallback(
                     browser=pyBrowser,
-                    frame=pyFrame,
+                    origin_url=pyOriginUrl,
                     is_proxy=pyIsProxy,
                     host=pyHost,
                     port=pyPort,
@@ -354,11 +354,13 @@ cdef public CefRefPtr[CefCookieManager] RequestHandler_GetCookieManager(
 
 cdef public void RequestHandler_OnProtocolExecution(
         CefRefPtr[CefBrowser] cefBrowser,
-        const CefString& cefUrl,
+        CefRefPtr[CefFrame] cef_frame,
+        CefRefPtr[CefRequest] cef_request,
         cpp_bool& cefAllowOSExecution
         ) except * with gil:
     cdef PyBrowser pyBrowser
-    cdef str pyUrl
+    cdef PyFrame frame
+    cdef PyRequest request
     cdef list pyAllowOSExecutionOut
     cdef object clientCallback
     try:
@@ -368,13 +370,15 @@ cdef public void RequestHandler_OnProtocolExecution(
             return
 
         pyBrowser = GetPyBrowser(cefBrowser, "OnProtocolExecution")
-        pyUrl = CefToPyString(cefUrl)
+        pyFrame = GetPyFrame(cef_frame)
+        pyRequest = CreatePyRequest(cef_request)
         pyAllowOSExecutionOut = [bool(cefAllowOSExecution)]
         clientCallback = pyBrowser.GetClientCallback("OnProtocolExecution")
         if clientCallback:
             clientCallback(
                     browser=pyBrowser,
-                    url=pyUrl,
+                    frame=pyFrame,
+                    request=pyRequest,
                     allow_execution_out=pyAllowOSExecutionOut)
             # Since Cython 0.17.4 assigning a value to an argument
             # passed by reference will throw an error, the fix is to

@@ -133,7 +133,7 @@ cdef public void LifespanHandler_OnBeforeClose(
         # GetCookieManager to implement custom cookie managers then
         # flushing of cookies would need to be handled manually.
         cefBrowser.get().GetHost().get().GetRequestContext().get() \
-                .GetDefaultCookieManager(
+                .GetCookieManager(
                         <CefRefPtr[CefCompletionCallback]?>NULL) \
                 .get().FlushStore(<CefRefPtr[CefCompletionCallback]?>NULL)
 

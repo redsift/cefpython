@@ -394,7 +394,7 @@ cdef class PyBrowser:
         # If using GetCookieManager to implement custom cookie managers
         # then flushing of cookies would need to be handled manually.
         self.GetCefBrowserHost().get().GetRequestContext().get() \
-                .GetDefaultCookieManager(
+                .GetCookieManager(
                         <CefRefPtr[CefCompletionCallback]?>NULL) \
                 .get().FlushStore(<CefRefPtr[CefCompletionCallback]?>NULL)
 

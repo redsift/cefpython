@@ -28,4 +28,5 @@ cdef extern from "include/cef_browser.h" namespace "CefBrowserHost":
         CefRefPtr[CefClient],
         CefString&,
         CefBrowserSettings&,
+        CefRefPtr[CefDictionaryValue],
         CefRefPtr[CefRequestContext]) nogil

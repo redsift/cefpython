@@ -55,9 +55,8 @@ void RequestHandler::OnResourceRedirect(CefRefPtr<CefBrowser> browser,
                                       new_url, request, response);
 }
 
-
 bool RequestHandler::GetAuthCredentials(CefRefPtr<CefBrowser> browser,
-                                        CefRefPtr<CefFrame> frame,
+                                        const CefString& origin_url,
                                         bool isProxy,
                                         const CefString& host,
                                         int port,
@@ -66,7 +65,7 @@ bool RequestHandler::GetAuthCredentials(CefRefPtr<CefBrowser> browser,
                                         CefRefPtr<CefAuthCallback> callback)
 {
     REQUIRE_IO_THREAD();
-    return RequestHandler_GetAuthCredentials(browser, frame, isProxy, host,
+    return RequestHandler_GetAuthCredentials(browser, origin_url, isProxy, host,
                                              port, realm, scheme, callback);
 }
 
@@ -80,12 +79,12 @@ bool RequestHandler::OnQuotaRequest(CefRefPtr<CefBrowser> browser,
                                          callback);
 }
 
-
 void RequestHandler::OnProtocolExecution(CefRefPtr<CefBrowser> browser,
-                                         const CefString& url,
+                                        CefRefPtr<CefFrame> frame,
+                                        CefRefPtr<CefRequest> request,
                                          bool& allow_os_execution) {
     REQUIRE_UI_THREAD();
-    RequestHandler_OnProtocolExecution(browser, url, allow_os_execution);
+    RequestHandler_OnProtocolExecution(browser, frame, request, allow_os_execution);
 }
 
 
@@ -117,7 +116,7 @@ void RequestHandler::OnPluginCrashed(CefRefPtr<CefBrowser> browser,
     REQUIRE_UI_THREAD();
     RequestHandler_OnPluginCrashed(browser, plugin_path);
 }
-
+/*
 bool RequestHandler::CanGetCookies(CefRefPtr<CefBrowser> browser,
                                    CefRefPtr<CefFrame> frame,
                                    CefRefPtr<CefRequest> request) {
@@ -132,3 +131,4 @@ bool RequestHandler::CanSetCookie(CefRefPtr<CefBrowser> browser,
     REQUIRE_IO_THREAD();
     return RequestHandler_CanSetCookie(browser, frame, request, cookie);
 }
+*/
